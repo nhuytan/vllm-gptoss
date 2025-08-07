@@ -16,7 +16,7 @@ RUN apt update && apt install -y \
 RUN pip install --pre torch --index-url https://download.pytorch.org/whl/nightly/cu121
 
 # Install Triton ≥ 3.4.0 and triton_kernels
-RUN pip install triton==3.4.0 triton_kernels
+RUN pip install triton==3.4.0
 
 # Install vLLM GPT-OSS version (note: --pre required)
 RUN pip install --pre vllm==0.10.1+gptoss \
