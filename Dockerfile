@@ -4,9 +4,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV FORCE_CUDA=1
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-ENV PATH="/root/.cargo/bin:$PATH"
+ENV PATH="/root/.local/bin:$PATH"
 
-# Use bash to preserve PATH changes across RUN commands
 SHELL ["/bin/bash", "-c"]
 
 # Install system packages
@@ -17,22 +16,19 @@ RUN apt update && apt install -y \
     && apt clean
 
 # Install uv (Python package manager from Astral)
-RUN curl -Ls https://astral.sh/uv/install.sh | bash && \
-    echo 'export PATH="$HOME/.cargo/bin:$PATH"' >> ~/.bashrc && \
-    source ~/.bashrc && \
-    uv --version
+RUN curl -Ls https://astral.sh/uv/install.sh | bash
+RUN uv --version
 
 # Install torch nightly (CUDA 12.1)
-RUN uv pip install --pre torch --index-url https://download.pytorch.org/whl/nightly/cu121
+RUN uv pip install --system --pre torch --index-url https://download.pytorch.org/whl/nightly/cu121
 
 # Install Triton 3.4.0
-RUN uv pip install triton==3.4.0
+RUN uv pip install --system triton==3.4.0
 
-# Install vLLM GPT-OSS build using uv
-RUN uv pip install --pre vllm==0.10.1+gptoss \
+# Install vLLM GPT-OSS build
+RUN uv pip install --system --pre vllm==0.10.1+gptoss \
     --extra-index-url https://wheels.vllm.ai/gpt-oss/ \
     --extra-index-url https://download.pytorch.org/whl/nightly/cu121 \
     --index-strategy unsafe-best-match
 
-# Default command
 CMD ["python3"]
