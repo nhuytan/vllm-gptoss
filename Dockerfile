@@ -1,6 +1,5 @@
 FROM nvidia/cuda:12.1.1-cudnn8-runtime-ubuntu22.04
 
-
 ENV DEBIAN_FRONTEND=noninteractive
 ENV FORCE_CUDA=1
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -27,7 +26,9 @@ RUN uv pip install --system --pre torch --index-url https://download.pytorch.org
 RUN uv pip install --system triton==3.4.0
 
 # Install vLLM GPT-OSS build
-RUN uv pip install --system --pre vllm==0.10.1+gptoss \
+RUN uv pip install --system --pre \
+	    torch==2.9.0.dev20250803+cu121 \
+		vllm==0.10.1+gptoss \
     --extra-index-url https://wheels.vllm.ai/gpt-oss/ \
     --extra-index-url https://download.pytorch.org/whl/nightly/cu121 \
     --index-strategy unsafe-best-match
