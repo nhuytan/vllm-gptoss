@@ -21,7 +21,11 @@ jobs:
           git clone https://github.com/zyongye/vllm.git
           cd vllm
           git checkout 8260948cdc379d13bf4b80d3172a03d21a983e05
-          cp ../Dockerfile_gpt-oss .
+
+      - name: Copy custom Dockerfile
+        run: cp ../.github/workflows/Dockerfile_gpt-oss .
+        working-directory: vllm
+
       - name: Show repo contents
         run: ls -R
 
