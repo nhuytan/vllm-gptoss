@@ -21,6 +21,8 @@ jobs:
           git clone https://github.com/zyongye/vllm.git
           cd vllm
           git checkout 8260948cdc379d13bf4b80d3172a03d21a983e05
+      - name: Show repo contents
+        run: ls -R
 
       # 3️⃣ Copy your custom Dockerfile into the repo
       #    Make sure you have added Dockerfile_gpt-oss to *this* repo so Actions can see it
