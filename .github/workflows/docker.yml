@@ -21,6 +21,7 @@ jobs:
           git clone https://github.com/zyongye/vllm.git
           cd vllm
           git checkout 8260948cdc379d13bf4b80d3172a03d21a983e05
+          cd ..
       - name: Show repo contents
         run: ls -R
 
